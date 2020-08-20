@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${modelAndView.title}"></title>
+</head>
+<body >
+<h3 th:text="${modelAndView.title}"></h3>
+<table border="1">
+    <thead>
+    <tr>
+        <td>windSpeed</td>
+        <td>rainfall</td>
+        <td>atmosphericTemperature</td>
+        <td>accumulation</td>
+        <td>pressure</td>
+        <td>windDirection</td>
+        <td>airHumidity</td>
+        <td>noise</td>
+        <td>illumination</td>
+        <td>pm10</td>
+        <td>pm25</td>
+        <td>createTime</td>
+    </tr>
+    <tbody>
+    <tr th:if="${modelAndView.weatherList.size()} eq 0">
+        <td colspan="3">没有查询信息</td>
+    </tr>
+    <tr th:each="weather : ${modelAndView.weatherList}">
+        <td th:text="${weather.windSpeed}"></td>
+        <td th:text="${weather.rainfall}"></td>
+        <td th:text="${weather.atmosphericTemperature}"></td>
+        <td th:text="${weather.accumulation}"></td>
+        <td th:text="${weather.pressure}"></td>
+        <td th:text="${weather.windDirection}"></td>
+        <td th:text="${weather.airHumidity}"></td>
+        <td th:text="${weather.noise}"></td>
+        <td th:text="${weather.illumination}"></td>
+        <td th:text="${weather.pm10}"></td>
+        <td th:text="${weather.pm25}"></td>
+        <td th:text="${weather.createTime}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

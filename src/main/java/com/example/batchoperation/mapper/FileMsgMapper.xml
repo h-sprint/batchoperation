@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.batchoperation.mapper.FileMsgMapper">
+    <insert id="insertfile" parameterType="com.example.batchoperation.entity.FileMsg" useGeneratedKeys="true">
+        INSERT INTO batchoperation.filemsg (fileName, fileAddress, fileType)
+        VALUES (#{fileName}, #{fileAddress}, #{fileType});
+    </insert>
+</mapper>

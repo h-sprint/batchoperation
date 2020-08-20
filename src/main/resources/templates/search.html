@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body >
+<form action="/search/info" method="post">
+    请输入查询条件：<br><br>
+    风速   ：<input type="text" name="windSpeed"><br>
+    雨量   ：<input type="text" name="rainfall"><br>
+    大气温度：<input type="text" name="atmosphericTemperature"><br>
+    雨量积累：<input type="text" name="accumulation"><br>
+    大气压力：<input type="text" name="pressure"><br>
+    风向   ：<input type="text" name="windDirection"><br>
+    大气湿度：<input type="text" name="airHumidity"><br>
+    噪声   ：<input type="text" name="noise"><br>
+    照度   ：<input type="text" name="illumination"><br>
+    pm10  ：<input type="text" name="pm10"><br>
+    pm25  ：<input type="text" name="pm25"><br>
+    创建时间：<input type="text" name="createTime"><br>
+    pageNum：<input type="text" name="pageNum"><br>
+    pageSize：<input type="text" name="pageSize"><br>
+    <br>
+    <input type="submit" value="查询">
+    <!--
+        <button type="button" id="btn" class="btn btn-default" onclick="download()">下载</button>
+     -->
+</form>
+<br>
+<form action="/search/download" method="post">
+    <input type="submit" value="下载">
+</form>
+<br>
+<!--
+<script>
+    function download() {
+        location.href = "http://localhost:8080/download"
+    }
+</script>
+-->
+<form action="/search/count" method="post">
+    <input type="submit" value="查询每天的天气信息数量">
+</form>
+<br>
+<form action="/search/maxCounter" method="post">
+    <input type="submit" value="查询天气信息数量最大的一天">
+</form>
+</body>
+</html>

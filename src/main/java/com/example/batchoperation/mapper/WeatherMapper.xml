@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.batchoperation.mapper.WeatherMapper">
+    <insert id="insertweather" parameterType="com.example.batchoperation.entity.Weather" useGeneratedKeys="true">
+        INSERT INTO batchoperation.weather(
+                        windSpeed,
+                        rainfall,
+                        atmosphericTemperature,
+                        accumulation,
+                        pressure,
+                        windDirection,
+                        airHumidity,
+                        noise,
+                        illumination,
+                        pm10,
+                        pm25,
+                        createTime)
+                        VALUES
+                        (#{windSpeed},
+                        #{rainfall},
+                        #{atmosphericTemperature},
+                        #{accumulation},
+                        #{pressure},
+                        #{windDirection},
+                        #{airHumidity},
+                        #{noise},
+                        #{illumination},
+                        #{pm10},
+                        #{pm25},
+                        #{createTime});
+
+    </insert>
+
+    <insert id="insertbatch" parameterType="java.util.List">
+        INSERT INTO batchoperation.weather (
+                        windSpeed,
+                        rainfall,
+                        atmosphericTemperature,
+                        accumulation,
+                        pressure,
+                        windDirection,
+                        airHumidity,
+                        noise,
+                        illumination,
+                        pm10,
+                        pm25,
+                        createTime)
+        VALUES
+        <foreach collection ="list" item="list" index= "index" separator =",">
+            (#{list.windSpeed},
+             #{list.rainfall},
+             #{list.atmosphericTemperature},
+             #{list.accumulation},
+             #{list.pressure},
+             #{list.windDirection},
+             #{list.airHumidity},
+             #{list.noise},
+             #{list.illumination},
+             #{list.pm10},
+             #{list.pm25},
+             #{list.createTime})
+
+        </foreach >
+    </insert>
+    
+    <delete id="deletebatch" parameterType="java.util.List">
+        DELETE FROM  batchoperation.weather  WHERE id IN
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="search" parameterType="com.example.batchoperation.entity.WeatherRequest"
+            resultType="com.example.batchoperation.entity.WeatherResponse">
+        select  windSpeed,
+                rainfall,
+                atmosphericTemperature,
+                accumulation,
+                pressure,
+                windDirection,
+                airHumidity,
+                noise,
+                illumination,
+                pm10,
+                pm25,
+                DATE_FORMAT(createTime,'%Y-%m-%d %H:%i:%S') AS createTime
+        from batchoperation.weather
+        <where>
+            <if test="windSpeed != null">
+                and windSpeed = #{windSpeed}
+            </if>
+            <if test="rainfall != null">
+                and rainfall = #{rainfall}
+            </if>
+            <if test="atmosphericTemperature != null">
+                and atmosphericTemperature = #{atmosphericTemperature}
+            </if>
+            <if test="accumulation != null">
+                and accumulation = #{accumulation}
+            </if>
+            <if test="pressure != null">
+                and pressure = #{pressure}
+            </if>
+            <if test="windDirection != null">
+                and windDirection = #{windDirection}
+            </if>
+            <if test="airHumidity != null">
+                and airHumidity = #{airHumidity}
+            </if>
+            <if test="noise != null">
+                and noise = #{noise}
+            </if>
+            <if test="illumination != null">
+                and illumination = #{illumination}
+            </if>
+            <if test="pm10 != null">
+                and pm10 = #{pm10}
+            </if>
+            <if test="pm25 != null">
+                and pm25 = #{pm25}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="count" resultType="com.example.batchoperation.entity.Count">
+        SELECT DATE_FORMAT(createTime,'%Y-%m-%d') AS day, count(*)  AS count FROM batchoperation.weather GROUP BY DAY
+    </select>
+
+
+    <select id="maxCounter" resultType="com.example.batchoperation.entity.Count">
+        SELECT day,count
+        FROM (SELECT DATE_FORMAT(createTime,'%Y-%m-%d') AS day, count(*)  AS count FROM batchoperation.weather  GROUP BY DAY) AS a
+        WHERE count in
+              (SELECT MAX(count) FROM(SELECT DATE_FORMAT(createTime,'%Y-%m-%d') AS day, count(*)  AS count FROM batchoperation.weather  GROUP BY DAY)AS a);
+    </select>
+</mapper>
