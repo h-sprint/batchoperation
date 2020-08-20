@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body >
+<form action="/deleteById" enctype="multipart/form-data" method="post">
+
+    单一删除: <br> (输入需要删除的 id, 以 ”,“ 隔开，例如: 6,7,8；如果不采用此种方式，请输入 null)<br><br>
+    <input type="text" name="single" >
+    <br>
+    <br>
+    <br>
+    区间删除: <br>(输入删除的区间, 以 ”-“ 隔开，例如: 8-9；如果不采用此种方式，请输入 0)<br><br>
+    左: <input type="text" name="intervalLeft" >
+    右: <input type="text" name="intervalRight" >
+    <br>
+    <br>
+    <br>
+    <input type="submit" value="删除">
+</form>
+</body>
+</html>
